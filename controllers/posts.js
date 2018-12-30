@@ -9,7 +9,7 @@ const addPost = async (req, res) => {
     if (!subject || !postText)
       throw new Error('subject and text are mandatory');
     const result = await postsDbService.addPost({ subject, postText, hotness });
-    const redisSaved = await redis.arrappend('posts', '.', result);
+    const redisSaved = await redis.addPost(result);
     res.status(204);
     res.json({ message: 'post created' });
   }
