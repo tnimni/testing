@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/tnimni/testing/issues"
   },
-  "homepage": "https://github.com/tnimni/testing#readme"
+  "homepage": "https://github.com/tnimni/testing#readme",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "express": "^4.16.4",
+    "iorejson": "^0.1.1",
+    "pg": "^7.7.1",
+    "redis": "^2.8.0",
+    "redis-rejson": "^1.0.0",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
+  }
 }
