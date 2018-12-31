@@ -1,5 +1,5 @@
 const postsDbService = require('../utils/db');
-const redis = require('../utils/redis').client;
+const redis = require('../utils/redis');
 const hotCalculator = require('../utils/hotness');
 
 const addPost = async (req, res) => {
@@ -26,10 +26,7 @@ const editPost = (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const redisResult = await redis.get('posts', '.');
-    let result;
-    if (!redisResult)
-      result = { posts: [] };
+    const redisResult = await redis.getTopPosts();
     res.json({ posts: [redisResult || result] });
   }
   catch (error) {

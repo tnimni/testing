@@ -1,4 +1,4 @@
-const bluebird = require('bluebird');
+const postsDbService = require('./db');
 const rejson = require('iorejson');
 const client = new rejson();
 
@@ -11,8 +11,16 @@ client.on('connect', () => {
 });
 
 const getTopPosts = async () => {
-  const redisResult = await client.get('posts');
-  return redisResult;
+  let result = await client.get('posts');
+  if (!result || result.length === 0)
+    result = await fillRedisFromDb();
+  return result;
+}
+
+const fillRedisFromDb = async () => {
+  const result = await postsDbService.getTopPosts();
+  await client.set('posts', '.', result);
+  return result;
 }
 
 const addPost = async (data) => {

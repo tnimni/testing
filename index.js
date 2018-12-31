@@ -1,6 +1,7 @@
 
 const express = require('express');
-const redis = require('./utils/redis').client;
+const redis = require('./utils/redis');
+const client = redis.client;
 
 //set up the app
 const app = express();
@@ -16,9 +17,9 @@ app.get('/alive', (req, res) => {
 
 (async () => {
   try {
-    const redisResult = await redis.get('posts');
+    const redisResult = await redis.getTopPosts();
     if (!redisResult)
-      await redis.set('posts', '.', []);
+      await client.set('posts', '.', []);
   }
   catch (error) {
     console.log(error);

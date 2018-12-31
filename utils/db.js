@@ -1,7 +1,7 @@
 const db = require('../models');
 
 const limit = { limit: 100 };
-const order = { order: ['createdAt', 'desc'] };
+const order = { order: ['hotness', 'createdAt', 'desc'] };
 
 const getTopPosts = async () => {
   try {
