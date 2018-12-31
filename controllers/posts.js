@@ -44,12 +44,32 @@ const getPostById = (req, res) => {
 
 };
 
-const upVote = (req, res) => {
-
+const upVote = async (req, res) => {
+  try {
+    const dbResult = await postsDbService.upVote(req.params.id);
+    await redis.rePopulateRedis();
+    res.status(204);
+    res.json({ message: 'post created' });
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500);
+    res.json({ message: 'unable to increment vote' });
+  }
 }
 
 const downVote = (req, res) => {
-
+  try {
+    const dbResult = await postsDbService.downVote(req.params.id);
+    await redis.rePopulateRedis();
+    res.status(204);
+    res.json({ message: 'post created' });
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500);
+    res.json({ message: 'unable to increment vote' });
+  }
 }
 
 module.exports = {

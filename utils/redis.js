@@ -23,6 +23,16 @@ const fillRedisFromDb = async () => {
   return result;
 }
 
+const rePopulateRedis = async () => {
+  try {
+  await client.del('posts', '.');
+  await fillRedisFromDb();
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
 const addPost = async (data) => {
   const redisResult = await client.arrlen('posts', '.');
   if (redisResult === 30)
@@ -31,7 +41,9 @@ const addPost = async (data) => {
 }
 
 module.exports = {
-  client,
-  getTopPosts,
   addPost,
+  client,
+  fillRedisFromDb,
+  getTopPosts,
+  rePopulateRedis,
 };

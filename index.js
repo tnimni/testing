@@ -2,10 +2,12 @@
 const express = require('express');
 const redis = require('./utils/redis');
 const client = redis.client;
+const qs = require('qs');
 
 //set up the app
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded());
 
 const postsRoute = require('./routes/posts')
 
@@ -19,7 +21,7 @@ app.get('/alive', (req, res) => {
   try {
     const redisResult = await redis.getTopPosts();
     if (!redisResult)
-      await client.set('posts', '.', []);
+      await redis.fill
   }
   catch (error) {
     console.log(error);

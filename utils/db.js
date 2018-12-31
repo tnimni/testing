@@ -23,7 +23,28 @@ const addPost = async (data) => {
   }
 }
 
+const upVote = async (id) => {
+  try {
+    const result = await db.posts.findById(id);
+    await result.increment('upVote');
+  }
+  catch (error) {
+    throw new Error('unable to update vote');
+  }
+}
+
+const downVote = async (id) => {
+  try {
+    const result = await db.posts.findById(id);
+    await result.decrement('downVote');
+  }
+  catch (error) {
+    throw new Error('unable to update vote');
+  }
+}
+
 module.exports = {
   getTopPosts,
   addPost,
+  upVote,
 };
